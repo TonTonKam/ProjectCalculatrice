@@ -18,13 +18,11 @@ public class Calcul {
 	
 	//methodes
 	public int additionRandom() {
-
 		num3 = num1 + num2;
 		return num3;
 	}
 
 	public int soustractionRandom() {
-
 		num3 = num1 - num2;
 		return num3;
 	}
@@ -35,12 +33,9 @@ public class Calcul {
 		fermetureApresResultat.schedule(new TimerTask() {
 			
 			public void run() {
-				
 				System.exit(0);
 			}
-			
 		},10000 // les secondes du délais (1000 = 1sec)
-				
 		);
 	}
 	
@@ -49,11 +44,11 @@ public class Calcul {
 		try {
 			TimeUnit.SECONDS.sleep(10);
 		} catch (InterruptedException e) {
-
 			e.printStackTrace();
 		}
 	}
 
+	//getter & setter
 	public int getNum1() {
 		return num1;
 	}
@@ -69,8 +64,6 @@ public class Calcul {
 	public void setNum2(int num2) {
 		this.num2 = num2;
 	}
-	
-	//getter & setter
 	
 	
 }

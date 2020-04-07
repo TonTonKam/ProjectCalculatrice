@@ -1,33 +1,30 @@
 package MvcCalculatrice.Vue;
 
-import javax.swing.JFrame;
 import javax.swing.*;
-import java.awt.event.*;
 
 public class IntroCalculette extends JFrame{
 
+	private JPanel pane = new JPanel();
+	
+	private int ht = 1024;
+	private int lg = 768;
+	
 	public IntroCalculette() {
-		
-		final int HT = 1024;
-		final int LG = 768;
-				    
-		JFrame i = new JFrame("Introduction");
+						    
 		//regler la taille
-		i.setSize(HT,LG);
-		i.setLocationRelativeTo(null);
-		//ecoute de la fenetre
-		i.addWindowListener(new gestionFenetre());
+		setSize(ht,lg);
+		setLocationRelativeTo(null);
+		
 		//localisation de l'image
 		ImageIcon icone = new ImageIcon("image.jpg"); 
 		JLabel image = new JLabel(icone);
-		i.add(image);
-		i.setVisible(true);
-		}
+		pane.add(image);
+		setVisible(true);
+		
+		//attribuer ce panel a la fenetre
+		this.setContentPane(pane);
 	}
-	class gestionFenetre extends WindowAdapter{
-		public void windowClosing(WindowEvent e){
-			System.exit(0);
-	}
-}	
+	
+} //fin
 
 

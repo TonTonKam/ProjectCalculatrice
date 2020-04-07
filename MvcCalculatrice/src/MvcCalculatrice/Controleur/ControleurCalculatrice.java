@@ -16,7 +16,6 @@ public class ControleurCalculatrice{
 	
 	private int resultat;
 	private int compteur = 0;
-	private boolean bool = false;
 	
 	private int resultA;
 	private int resultS;
@@ -28,6 +27,7 @@ public class ControleurCalculatrice{
 		//association des boutons de la vue vers la fonction du controleur  
 		this.vue.addBoutonIncremListener1(new BoutonIncremListener1());
 		this.vue.addBoutonDecremListener1(new BoutonDecreListener1());
+		this.vue.addBoutonComparer(new BoutonComparer());
 		this.genererCalcul();
 	}
 	
@@ -58,7 +58,7 @@ public class ControleurCalculatrice{
 		vue.setLabelChiffreR1(calc.getNum1());
 		vue.setLabelChiffreR2(calc.getNum2());
 		vue.setLabelCalcul("+");
-		System.out.println(resultA);
+		System.out.println(resultA+" resultat ");
 	}
 
 	
@@ -77,8 +77,9 @@ public class ControleurCalculatrice{
 		vue.setLabelChiffreR1(calc.getNum1());
 		vue.setLabelChiffreR2(calc.getNum2());
 		vue.setLabelCalcul("-");
-		System.out.println(resultS);
+		System.out.println(resultS+" resultat ");
 	}
+	
 	
 		
 //Classe écoutant notre premier bouton
@@ -91,8 +92,7 @@ public class ControleurCalculatrice{
 				compteur++;
 				resultat = compteur;
 
-				vue.setLabelChiffre1(""+resultat+"");			 
-
+				vue.setLabelChiffre1(""+resultat+"");
 				vue.setLabelChiffre1(resultat);
 				vue.setLabelChiffre1Bis(resultat);
 
@@ -110,11 +110,34 @@ public class ControleurCalculatrice{
 				resultat = compteur;
 
 				vue.setLabelChiffre1(""+resultat+"");		
-				
 				vue.setLabelChiffre1(resultat);
 				vue.setLabelChiffre1Bis(resultat);
 
 			}
 		}
 	} 
-}
+
+//Classe écoutant notre bouton comparer
+	class BoutonComparer implements ActionListener{
+		
+	//Redéfinition de la méthode actionPerformed()
+		public void actionPerformed(ActionEvent e) {
+			String symbole;
+			symbole = vue.getLabelCalcul();
+			if(symbole == "+") {
+				if(resultat == calc.additionRandom()) {
+					vue.setLabelResultat("Bien joué mais te la péte pas trop!");
+				}else {
+					vue.setLabelResultat("T'es mauvais Jack, tu sais pas jouer");
+				}
+			}
+			else if(symbole == "-") {
+				if(resultat == calc.soustractionRandom()) {
+					vue.setLabelResultat("Bien joué mais te la péte pas trop!");
+				}else {
+					vue.setLabelResultat("T'es mauvais Jack, tu sais pas jouer");
+				}
+			}
+		}
+	}
+} //fin

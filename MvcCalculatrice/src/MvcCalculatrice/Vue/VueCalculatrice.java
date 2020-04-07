@@ -25,6 +25,7 @@ public class VueCalculatrice extends JFrame{
 	//creation des boutons de controle
 	private JButton boutonIncrementation1 = new JButton("Ajouter");
 	private JButton boutonDecrementation1 = new JButton("Retirer");
+	private JButton boutonComparer = new JButton("Calculer");
 
 	//creation part milieu
 	private JLabel labelChiffreR1 = new JLabel("0");
@@ -32,12 +33,13 @@ public class VueCalculatrice extends JFrame{
 	private JLabel labelChiffreR2 = new JLabel("0");
 	private JLabel labelTotal = new JLabel("=");
 	private JLabel labelChiffre1Bis = new JLabel("0");
+	private JLabel labelResultat = new JLabel(" ");
 
 	
 	//la classe prend le nom du fichier mere	
 	public VueCalculatrice() {
-		
-//option du cadre	
+
+//option du cadre
 		//definir un titre pour le cadre
 		setTitle("Calculatrice Enfant");
 		//definir une taille (1er longeur, 2er hauteur)
@@ -52,7 +54,7 @@ public class VueCalculatrice extends JFrame{
 		//option du panel
 		pane.setLayout(new BorderLayout());
 		
-//option du construct pour l'objet		
+//option du construct pour l'objet
 		//attribuer ce panel a la fenetre
 		this.setContentPane(pane);
 		
@@ -66,10 +68,10 @@ public class VueCalculatrice extends JFrame{
 		labelNombre.setForeground(Color.blue);
 		labelChiffre1.setFont(police);
 	    labelChiffre1.setForeground(Color.red);
-	    	    
+	    
 	    north.add(labelNombre);
 	    north.add(labelChiffre1);
-	    pane.add(north, BorderLayout.NORTH);	
+	    pane.add(north, BorderLayout.NORTH);
 
 		labelChiffreR1.setFont(police);
 		labelChiffreR1.setForeground(Color.green);
@@ -83,7 +85,11 @@ public class VueCalculatrice extends JFrame{
 	    labelChiffre1.setForeground(Color.red);
 	    labelChiffre1Bis.setFont(police);
 	    labelChiffre1Bis.setForeground(Color.red);
-	   	    	    
+	    boutonComparer.setFont(police);
+	    boutonComparer.setForeground(Color.black);
+	    labelResultat.setFont(police);
+	    labelResultat.setForeground(Color.red);
+	    
 	    north.add(labelNombre);
 	    north.add(labelChiffre1);
 	    pane.add(north, BorderLayout.NORTH);
@@ -96,13 +102,15 @@ public class VueCalculatrice extends JFrame{
 	    center.add(labelChiffreR2);
 	    center.add(labelTotal);
 	    center.add(labelChiffre1Bis);
+	    center.add(labelResultat);
 	    pane.add(center, BorderLayout.CENTER);
 
 		
-	    //positionnement des boutons en bas		
+	    //positionnement des boutons en bas
 	    JPanel south = new JPanel();
 	    south.add(boutonIncrementation1);
 	    south.add(boutonDecrementation1);
+	    south.add(boutonComparer);
 
 	    pane.add(south, BorderLayout.SOUTH);
 	} //fin de presentation du panel
@@ -110,18 +118,14 @@ public class VueCalculatrice extends JFrame{
 // si les boutons sont clickes, on execute la methode dans le controleur nomme actionPerformed
 	public void addBoutonIncremListener1(ActionListener listenForCalcButton){
 		boutonIncrementation1.addActionListener(listenForCalcButton);
-
 	}
 
 	public void addBoutonDecremListener1(ActionListener listenForCalcButton){
 		boutonDecrementation1.addActionListener(listenForCalcButton);
 	}
-
-	//afficher message d'erreur
-	public void afficherMessageErreur(String messageErreur){
-
-		JOptionPane.showMessageDialog(this, messageErreur);
-
+	
+	public void addBoutonComparer(ActionListener action){
+		boutonComparer.addActionListener(action);
 	}
 	
 	//getter & setter
@@ -148,7 +152,6 @@ public class VueCalculatrice extends JFrame{
 		labelChiffre1Bis.setText(Integer.toString(resultat));
 	}
 
-
 	public JButton getBoutonIncrementation1() {
 		return boutonIncrementation1;
 	}
@@ -163,7 +166,6 @@ public class VueCalculatrice extends JFrame{
 
 	public void setBoutonDecrementation1(JButton boutonDecrementation1) {
 		this.boutonDecrementation1 = boutonDecrementation1;
-
 	}
 	
 	public void setLabelChiffreR1(int result) {
@@ -177,11 +179,13 @@ public class VueCalculatrice extends JFrame{
 	public void setLabelCalcul(String string) {
 		labelCalcul.setText(string);
 	}
-
-	public JLabel getLabelCalcul() {
-		
-		return labelCalcul;
-
+	
+	public String getLabelCalcul() {
+		return labelCalcul.getText();
+	}
+	
+	public void setLabelResultat(String solution) {
+		labelResultat.setText(solution);
 	}
 
 	
