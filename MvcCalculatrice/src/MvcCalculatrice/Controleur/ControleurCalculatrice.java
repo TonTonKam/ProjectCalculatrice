@@ -12,13 +12,10 @@ public class ControleurCalculatrice{
 	//attributs
 	private Calcul calc;
 	private VueCalculatrice vue;
-	private IntroCalculette intro;
 	
 	private int resultat;
 	private int compteur = 0;
 	
-	private int resultA;
-	private int resultS;
 	
 	//constructeur
 	public ControleurCalculatrice (Calcul c, VueCalculatrice v) {
@@ -33,7 +30,7 @@ public class ControleurCalculatrice{
 	
 	//methode
 	public void genererCalcul() {
-		
+		//genere un calcul aleatoire de 5 additions sur 6 soustractions
 		int r  = (int)(Math.random() * 10);
 		if(r > 4 ) {
 			this.valeurRanAddition();
@@ -52,13 +49,9 @@ public class ControleurCalculatrice{
 		calc.setNum1(num1);
 		calc.setNum2(num2);
 		
-		//envoi de la valeur
-		int resultA;
-		resultA = calc.additionRandom();
 		vue.setLabelChiffreR1(calc.getNum1());
 		vue.setLabelChiffreR2(calc.getNum2());
 		vue.setLabelCalcul("+");
-		System.out.println(resultA+" resultat ");
 	}
 
 	
@@ -71,13 +64,9 @@ public class ControleurCalculatrice{
 		calc.setNum1(num1);
 		calc.setNum2(num2);
 		
-		//envoi la valeur
-		int resultS;
-		resultS = calc.soustractionRandom();
 		vue.setLabelChiffreR1(calc.getNum1());
 		vue.setLabelChiffreR2(calc.getNum2());
 		vue.setLabelCalcul("-");
-		System.out.println(resultS+" resultat ");
 	}
 	
 	
@@ -87,12 +76,12 @@ public class ControleurCalculatrice{
 		
 	//Redéfinition de la méthode actionPerformed()
 	//note perso : l'action performed prend la 1er valeur qui lui vient comme la sienne
-		public void actionPerformed(ActionEvent e) {	
+		public void actionPerformed(ActionEvent e) {
+			//creation du compteur bloqué entre 0 et 10
 			if(compteur >= 0 && compteur < 10) {
 				compteur++;
 				resultat = compteur;
 
-				vue.setLabelChiffre1(""+resultat+"");
 				vue.setLabelChiffre1(resultat);
 				vue.setLabelChiffre1Bis(resultat);
 
@@ -109,7 +98,6 @@ public class ControleurCalculatrice{
 				compteur--;
 				resultat = compteur;
 
-				vue.setLabelChiffre1(""+resultat+"");		
 				vue.setLabelChiffre1(resultat);
 				vue.setLabelChiffre1Bis(resultat);
 
@@ -123,8 +111,10 @@ public class ControleurCalculatrice{
 	//Redéfinition de la méthode actionPerformed()
 		public void actionPerformed(ActionEvent e) {
 			String symbole;
+			//attribution du choix de calcul
 			symbole = vue.getLabelCalcul();
 			if(symbole == "+") {
+				//valeur du resultat verifie avec le resultat de l'operation choisi
 				if(resultat == calc.additionRandom()) {
 					vue.setLabelResultat("Bien joué mais te la péte pas trop!");
 				}else {
