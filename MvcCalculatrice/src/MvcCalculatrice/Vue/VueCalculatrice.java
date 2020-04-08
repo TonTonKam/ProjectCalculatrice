@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class VueCalculatrice extends JFrame{
 
@@ -46,8 +47,8 @@ public class VueCalculatrice extends JFrame{
 		setSize(600, 200);
 		//fenetre centrer
 		setLocationRelativeTo(null);
-		// terminer le processus lorsque l'on clique "fermer"
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		// ne termine pas le processus lorsque l'on clique "fermer"
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		//visibilite
 		setVisible(true);
 		//ajoute et placement des elements (controle panel)
@@ -115,6 +116,12 @@ public class VueCalculatrice extends JFrame{
 	    pane.add(south, BorderLayout.SOUTH);
 	} //fin de presentation du panel
 	
+	//creation des boutons de controle
+
+	public JButton getBoutonComparer() {
+		return boutonComparer;
+	}
+/*
 // si les boutons sont clickes, on execute la methode dans le controleur nomme actionPerformed
 	public void addBoutonIncremListener1(ActionListener listenForCalcButton){
 		boutonIncrementation1.addActionListener(listenForCalcButton);
@@ -127,7 +134,7 @@ public class VueCalculatrice extends JFrame{
 	public void addBoutonComparer(ActionListener action){
 		boutonComparer.addActionListener(action);
 	}
-	
+*/
 	public void infoLabelResultat(String resultat) {
 		setLabelResultat(resultat);
 	}

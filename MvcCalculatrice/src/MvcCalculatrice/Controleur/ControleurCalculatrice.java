@@ -20,10 +20,18 @@ public class ControleurCalculatrice{
 	public ControleurCalculatrice (Calcul c, VueCalculatrice v) {
 		this.calc = c;
 		vue = v;
-		//association des boutons de la vue vers la fonction du controleur  
-		this.vue.addBoutonIncremListener1(new BoutonIncremListener1());
-		this.vue.addBoutonDecremListener1(new BoutonDecreListener1());
-		this.vue.addBoutonComparer(new BoutonComparer());
+
+		
+		vue.getBoutonComparer().addActionListener(new BoutonComparer());
+		vue.getBoutonIncrementation1().addActionListener(new BoutonIncremListener1());
+		vue.getBoutonDecrementation1().addActionListener(new BoutonDecreListener1());
+	
+		vue.addWindowListener(new java.awt.event.WindowAdapter() {	    	
+		    @Override
+		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+		       //a travailler
+		    }
+		});
 		this.genererCalcul();
 	}
 	
@@ -47,6 +55,7 @@ public class ControleurCalculatrice{
 		num2 = (int)(Math.random()*(10 - num1) + 1);
 		calc.setNum1(num1);
 		calc.setNum2(num2);
+		
 		
 		vue.setLabelChiffreR1(calc.getNum1());
 		vue.setLabelChiffreR2(calc.getNum2());
@@ -72,7 +81,7 @@ public class ControleurCalculatrice{
 		//valeur du resultat verifie avec le resultat de l'operation choisi
 		if(resultat == calc.additionRandom()) {
 			vue.infoLabelResultat("Bien joué mais te la péte pas trop!");
-			
+			calc.fin();
 		}else {
 			//res permet d'afficher le nombre d'essai restant
 			int res;

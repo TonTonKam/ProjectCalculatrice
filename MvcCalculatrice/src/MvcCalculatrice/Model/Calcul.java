@@ -33,7 +33,7 @@ public class Calcul {
 		},1 // les secondes du délais (1000 = 1sec)
 		);
 	}
-	
+/*	
 	public void pauseProgramme() {
 
 		try {
@@ -47,7 +47,7 @@ public class Calcul {
 		pauseProgramme();
 		fermetureProgramme();
 	}
-
+*/
 	//getter & setter
 	public int getNum1() {
 		return num1;
