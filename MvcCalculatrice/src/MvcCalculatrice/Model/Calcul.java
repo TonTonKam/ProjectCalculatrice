@@ -11,11 +11,6 @@ public class Calcul {
 	private int num2;
 	private int num3;
 	
-	//constructeur
-	public Calcul () {
-		
-	}
-	
 	//methodes
 	public int additionRandom() {
 		num3 = num1 + num2;
@@ -35,7 +30,7 @@ public class Calcul {
 			public void run() {
 				System.exit(0);
 			}
-		},10000 // les secondes du délais (1000 = 1sec)
+		},1 // les secondes du délais (1000 = 1sec)
 		);
 	}
 	
@@ -46,6 +41,10 @@ public class Calcul {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void fin() {
+		
 	}
 
 	//getter & setter

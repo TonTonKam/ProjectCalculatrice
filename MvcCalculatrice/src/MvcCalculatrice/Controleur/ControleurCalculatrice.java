@@ -69,6 +69,10 @@ public class ControleurCalculatrice{
 		vue.setLabelCalcul("-");
 	}
 	
+	public void fin(){
+		calc.pauseProgramme();
+		calc.fermetureProgramme();
+	}
 	
 		
 //Classe écoutant notre premier bouton
@@ -117,15 +121,19 @@ public class ControleurCalculatrice{
 				//valeur du resultat verifie avec le resultat de l'operation choisi
 				if(resultat == calc.additionRandom()) {
 					vue.setLabelResultat("Bien joué mais te la péte pas trop!");
+					fin();
 				}else {
 					vue.setLabelResultat("T'es mauvais Jack, tu sais pas jouer");
+					fin();
 				}
 			}
 			else if(symbole == "-") {
 				if(resultat == calc.soustractionRandom()) {
 					vue.setLabelResultat("Bien joué mais te la péte pas trop!");
+					fin();
 				}else {
 					vue.setLabelResultat("T'es mauvais Jack, tu sais pas jouer");
+					fin();
 				}
 			}
 		}
