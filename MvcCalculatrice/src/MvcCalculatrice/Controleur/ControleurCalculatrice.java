@@ -2,9 +2,7 @@ package MvcCalculatrice.Controleur;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import MvcCalculatrice.Model.Calcul;
-import MvcCalculatrice.Vue.IntroCalculette;
 import MvcCalculatrice.Vue.VueCalculatrice;
 
 public class ControleurCalculatrice{
@@ -15,6 +13,7 @@ public class ControleurCalculatrice{
 	
 	private int resultat;
 	private int compteur = 0;
+	private int erreur =0;
 	
 	
 	//constructeur
@@ -69,11 +68,38 @@ public class ControleurCalculatrice{
 		vue.setLabelCalcul("-");
 	}
 	
-	public void fin(){
-		calc.pauseProgramme();
-		calc.fermetureProgramme();
+	public void verifierAddition() {
+		//valeur du resultat verifie avec le resultat de l'operation choisi
+		if(resultat == calc.additionRandom()) {
+			vue.infoLabelResultat("Bien joué mais te la péte pas trop!");
+			
+		}else {
+			//res permet d'afficher le nombre d'essai restant
+			int res;
+			erreur++;
+			res = 3 - erreur;
+			vue.setLabelResultat("T'es mauvais Jack, tu sais pas jouer! Recommence "+res);
+			if(res == 0) {
+				vue.infoLabelResultat("Le resultat était : "+calc.additionRandom()+" entraine toi plus!");
+			}
+		}
 	}
 	
+	public void verifierSoustraction() {
+		//valeur du resultat verifie avec le resultat de l'operation choisi
+		if(resultat == calc.soustractionRandom()) {
+			vue.infoLabelResultat("Bien joué mais te la péte pas trop!");
+			
+		}else {
+			int res;
+			erreur++;
+			res = 3 - erreur;
+			vue.infoLabelResultat("T'es mauvais Jack, tu sais pas jouer! Recommence "+res);
+			if(res == 0) {
+				vue.infoLabelResultat("Le resultat était : "+calc.soustractionRandom()+" entraine toi plus!");
+			}
+		}
+	}
 		
 //Classe écoutant notre premier bouton
 	class BoutonIncremListener1 implements ActionListener{
@@ -88,7 +114,6 @@ public class ControleurCalculatrice{
 
 				vue.setLabelChiffre1(resultat);
 				vue.setLabelChiffre1Bis(resultat);
-
 			}
 		}
 	}
@@ -104,7 +129,6 @@ public class ControleurCalculatrice{
 
 				vue.setLabelChiffre1(resultat);
 				vue.setLabelChiffre1Bis(resultat);
-
 			}
 		}
 	} 
@@ -115,27 +139,16 @@ public class ControleurCalculatrice{
 	//Redéfinition de la méthode actionPerformed()
 		public void actionPerformed(ActionEvent e) {
 			String symbole;
-			//attribution du choix de calcul
+			//valeur du resultat verifie avec le resultat de l'operation choisi
 			symbole = vue.getLabelCalcul();
+			
 			if(symbole == "+") {
-				//valeur du resultat verifie avec le resultat de l'operation choisi
-				if(resultat == calc.additionRandom()) {
-					vue.setLabelResultat("Bien joué mais te la péte pas trop!");
-					fin();
-				}else {
-					vue.setLabelResultat("T'es mauvais Jack, tu sais pas jouer");
-					fin();
-				}
+				verifierAddition();
 			}
 			else if(symbole == "-") {
-				if(resultat == calc.soustractionRandom()) {
-					vue.setLabelResultat("Bien joué mais te la péte pas trop!");
-					fin();
-				}else {
-					vue.setLabelResultat("T'es mauvais Jack, tu sais pas jouer");
-					fin();
-				}
+				verifierSoustraction();
 			}
+		
 		}
 	}
 } //fin

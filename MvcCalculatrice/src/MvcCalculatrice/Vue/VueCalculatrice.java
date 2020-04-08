@@ -88,7 +88,7 @@ public class VueCalculatrice extends JFrame{
 	    boutonComparer.setFont(police);
 	    boutonComparer.setForeground(Color.black);
 	    labelResultat.setFont(police);
-	    labelResultat.setForeground(Color.red);
+	    labelResultat.setForeground(Color.orange);
 	    
 	    north.add(labelNombre);
 	    north.add(labelChiffre1);
@@ -126,6 +126,10 @@ public class VueCalculatrice extends JFrame{
 	
 	public void addBoutonComparer(ActionListener action){
 		boutonComparer.addActionListener(action);
+	}
+	
+	public void infoLabelResultat(String resultat) {
+		setLabelResultat(resultat);
 	}
 	
 	//getter & setter

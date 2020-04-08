@@ -43,8 +43,9 @@ public class Calcul {
 		}
 	}
 	
-	public void fin() {
-		
+	public void fin(){
+		pauseProgramme();
+		fermetureProgramme();
 	}
 
 	//getter & setter

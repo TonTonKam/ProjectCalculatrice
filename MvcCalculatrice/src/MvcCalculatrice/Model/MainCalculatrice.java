@@ -9,17 +9,8 @@ public class MainCalculatrice {
 
 	public static void main(String[] args) {
 		
-		ThreadCalculette t = new ThreadCalculette();
+		ThreadLancementCalculette t = new ThreadLancementCalculette();
 		
 		t.start();
-		/*
-		//objet
-		IntroCalculette intro = new IntroCalculette();
-		
-		Calcul calc = new Calcul();
-		VueCalculatrice vue = new VueCalculatrice();
-		//utiliser les valeurs des objets (il sait que le constructeur a 2 resultats a mettre)
-		ControleurCalculatrice ctrl = new ControleurCalculatrice(calc, vue);
-		*/
 	}
 }
