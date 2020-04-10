@@ -21,33 +21,7 @@ public class Calcul {
 		num3 = num1 - num2;
 		return num3;
 	}
-	
-	public static void fermetureProgramme() {
-		
-		Timer fermetureApresResultat = new Timer();  
-		fermetureApresResultat.schedule(new TimerTask() {
-			
-			public void run() {
-				System.exit(0);
-			}
-		},1 // les secondes du délais (1000 = 1sec)
-		);
-	}
-/*	
-	public void pauseProgramme() {
 
-		try {
-			TimeUnit.SECONDS.sleep(10);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void fin(){
-		pauseProgramme();
-		fermetureProgramme();
-	}
-*/
 	//getter & setter
 	public int getNum1() {
 		return num1;

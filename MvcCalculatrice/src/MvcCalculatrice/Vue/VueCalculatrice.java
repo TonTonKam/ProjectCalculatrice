@@ -116,12 +116,9 @@ public class VueCalculatrice extends JFrame{
 	    pane.add(south, BorderLayout.SOUTH);
 	} //fin de presentation du panel
 	
-	//creation des boutons de controle
-
-	public JButton getBoutonComparer() {
-		return boutonComparer;
-	}
+	
 /*
+ *Changement de procedure pour liberer la vue
 // si les boutons sont clickes, on execute la methode dans le controleur nomme actionPerformed
 	public void addBoutonIncremListener1(ActionListener listenForCalcButton){
 		boutonIncrementation1.addActionListener(listenForCalcButton);
@@ -135,6 +132,12 @@ public class VueCalculatrice extends JFrame{
 		boutonComparer.addActionListener(action);
 	}
 */
+//creation des boutons de controle
+
+	public JButton getBoutonComparer() {
+		return boutonComparer;
+	}
+		
 	public void infoLabelResultat(String resultat) {
 		setLabelResultat(resultat);
 	}

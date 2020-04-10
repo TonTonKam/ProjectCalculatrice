@@ -9,6 +9,7 @@ public class ThreadLancementCalculette extends Thread{
 	
 	private int periodeFenetre = 10;
 	private IntroCalculette intro;
+	private ControleurCalculatrice calc;
 	
 	public ThreadLancementCalculette() {
 		sec = 0;
@@ -30,7 +31,7 @@ public class ThreadLancementCalculette extends Thread{
 				VueCalculatrice vue = new VueCalculatrice();
 				ControleurCalculatrice ctrl = new ControleurCalculatrice(calc, vue);
 			}
-			
+				
 			try {
 				sleep(1000);
 			} catch (InterruptedException e) {
@@ -38,7 +39,5 @@ public class ThreadLancementCalculette extends Thread{
 				e.printStackTrace();
 			}
 		}
-	
-	}
-
-}
+	} //fin run
+} //fin

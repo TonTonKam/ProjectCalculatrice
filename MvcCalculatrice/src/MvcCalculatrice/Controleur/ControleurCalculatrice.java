@@ -2,7 +2,12 @@ package MvcCalculatrice.Controleur;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
+
 import MvcCalculatrice.Model.Calcul;
+import MvcCalculatrice.Vue.IntroCalculette;
 import MvcCalculatrice.Vue.VueCalculatrice;
 
 public class ControleurCalculatrice{
@@ -10,18 +15,17 @@ public class ControleurCalculatrice{
 	//attributs
 	private Calcul calc;
 	private VueCalculatrice vue;
+	Timer wait = new Timer();
 	
 	private int resultat;
 	private int compteur = 0;
 	private int erreur =0;
-	
 	
 	//constructeur
 	public ControleurCalculatrice (Calcul c, VueCalculatrice v) {
 		this.calc = c;
 		vue = v;
 
-		
 		vue.getBoutonComparer().addActionListener(new BoutonComparer());
 		vue.getBoutonIncrementation1().addActionListener(new BoutonIncremListener1());
 		vue.getBoutonDecrementation1().addActionListener(new BoutonDecreListener1());
@@ -29,13 +33,25 @@ public class ControleurCalculatrice{
 		vue.addWindowListener(new java.awt.event.WindowAdapter() {	    	
 		    @Override
 		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-		       //a travailler
+		    	procedureDeFermeture();
 		    }
 		});
 		this.genererCalcul();
 	}
 	
-	//methode
+	//methodes
+	public void procedureDeFermeture() {
+		IntroCalculette intro1 = new IntroCalculette();
+    	Timer fermeture = new Timer();
+		fermeture.schedule(new TimerTask() {
+			
+			public void run() {
+				System.exit(0);
+			}
+		},5000 // les secondes du délais (1000 = 1sec)
+		);
+	}
+	
 	public void genererCalcul() {
 		//genere un calcul aleatoire de 5 additions sur 6 soustractions
 		int r  = (int)(Math.random() * 10);
@@ -55,7 +71,6 @@ public class ControleurCalculatrice{
 		num2 = (int)(Math.random()*(10 - num1) + 1);
 		calc.setNum1(num1);
 		calc.setNum2(num2);
-		
 		
 		vue.setLabelChiffreR1(calc.getNum1());
 		vue.setLabelChiffreR2(calc.getNum2());
@@ -81,7 +96,14 @@ public class ControleurCalculatrice{
 		//valeur du resultat verifie avec le resultat de l'operation choisi
 		if(resultat == calc.additionRandom()) {
 			vue.infoLabelResultat("Bien joué mais te la péte pas trop!");
-			calc.fin();
+			wait.schedule(new TimerTask() {
+				
+				public void run() {
+					procedureDeFermeture();
+				}
+			},2000 // les secondes du délais (1000 = 1sec)
+			);
+			
 		}else {
 			//res permet d'afficher le nombre d'essai restant
 			int res;
@@ -90,6 +112,14 @@ public class ControleurCalculatrice{
 			vue.setLabelResultat("T'es mauvais Jack, tu sais pas jouer! Recommence "+res);
 			if(res == 0) {
 				vue.infoLabelResultat("Le resultat était : "+calc.additionRandom()+" entraine toi plus!");
+				wait.schedule(new TimerTask() {
+					
+					public void run() {
+						procedureDeFermeture();
+					}
+				},2000 // les secondes du délais (1000 = 1sec)
+				);
+				
 			}
 		}
 	}
@@ -98,6 +128,13 @@ public class ControleurCalculatrice{
 		//valeur du resultat verifie avec le resultat de l'operation choisi
 		if(resultat == calc.soustractionRandom()) {
 			vue.infoLabelResultat("Bien joué mais te la péte pas trop!");
+			wait.schedule(new TimerTask() {
+				
+				public void run() {
+					procedureDeFermeture();
+				}
+			},2000 // les secondes du délais (1000 = 1sec)
+			);
 			
 		}else {
 			int res;
@@ -106,11 +143,20 @@ public class ControleurCalculatrice{
 			vue.infoLabelResultat("T'es mauvais Jack, tu sais pas jouer! Recommence "+res);
 			if(res == 0) {
 				vue.infoLabelResultat("Le resultat était : "+calc.soustractionRandom()+" entraine toi plus!");
+				wait.schedule(new TimerTask() {
+					
+					public void run() {
+						procedureDeFermeture();
+					}
+				},2000 // les secondes du délais (1000 = 1sec)
+				);
+				
 			}
 		}
 	}
 		
-//Classe écoutant notre premier bouton
+
+	//Classe écoutant
 	class BoutonIncremListener1 implements ActionListener{
 		
 	//Redéfinition de la méthode actionPerformed()
@@ -127,7 +173,7 @@ public class ControleurCalculatrice{
 		}
 	}
 	
-//Classe écoutant notre second bouton
+	//Classe écoutant notre second bouton
 	class BoutonDecreListener1 implements ActionListener{
 		
 	//Redéfinition de la méthode actionPerformed()
@@ -142,7 +188,7 @@ public class ControleurCalculatrice{
 		}
 	} 
 
-//Classe écoutant notre bouton comparer
+	//Classe écoutant notre bouton comparer
 	class BoutonComparer implements ActionListener{
 		
 	//Redéfinition de la méthode actionPerformed()
@@ -160,4 +206,27 @@ public class ControleurCalculatrice{
 		
 		}
 	}
+/*	
+	 fonction utile
+		public static void fermetureProgramme() {
+			
+			Timer fermetureApresResultat = new Timer();  
+			fermetureApresResultat.schedule(new TimerTask() {
+				
+				public void run() {
+					System.exit(0);
+				}
+			},1 // les secondes du délais (1000 = 1sec)
+			);
+		}
+		
+		public void pauseProgramme() {
+
+			try {
+				TimeUnit.SECONDS.sleep(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+*/
 } //fin
