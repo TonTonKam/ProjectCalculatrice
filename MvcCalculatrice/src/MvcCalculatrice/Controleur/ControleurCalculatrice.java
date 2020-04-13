@@ -4,10 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
-
 import MvcCalculatrice.Model.Calcul;
+import MvcCalculatrice.Model.ThreadClotureCalculatrice;
 import MvcCalculatrice.Vue.IntroCalculette;
+import MvcCalculatrice.Vue.ScoringCalculatrice;
 import MvcCalculatrice.Vue.VueCalculatrice;
 
 public class ControleurCalculatrice{
@@ -15,11 +15,16 @@ public class ControleurCalculatrice{
 	//attributs
 	private Calcul calc;
 	private VueCalculatrice vue;
-	Timer wait = new Timer();
+	private ThreadClotureCalculatrice cloture;
+	private ScoringCalculatrice scoring;
+	private Timer wait = new Timer();
 	
 	private int resultat;
-	private int compteur = 0;
-	private int erreur =0;
+	private int compteur;
+	private int erreur = 0;
+	private int score = 0;
+	private int nbDeCalcul = 0;
+	private int res = 0;
 	
 	//constructeur
 	public ControleurCalculatrice (Calcul c, VueCalculatrice v) {
@@ -37,21 +42,10 @@ public class ControleurCalculatrice{
 		    }
 		});
 		this.genererCalcul();
+		
 	}
 	
 	//methodes
-	public void procedureDeFermeture() {
-		IntroCalculette intro1 = new IntroCalculette();
-    	Timer fermeture = new Timer();
-		fermeture.schedule(new TimerTask() {
-			
-			public void run() {
-				System.exit(0);
-			}
-		},5000 // les secondes du délais (1000 = 1sec)
-		);
-	}
-	
 	public void genererCalcul() {
 		//genere un calcul aleatoire de 5 additions sur 6 soustractions
 		int r  = (int)(Math.random() * 10);
@@ -60,7 +54,14 @@ public class ControleurCalculatrice{
 		}else {
 			this.valeurRanSoustraction();
 		}
-		
+		//raz
+		vue.setLabelResultat("");
+		vue.setLabelChiffre1(0);
+		vue.setLabelChiffre1Bis(0);
+		vue.getBoutonComparer().setEnabled(true);
+		compteur = 0;
+		erreur = 0;
+		res = 0;
 	}
 
 	public void valeurRanAddition() {
@@ -95,27 +96,31 @@ public class ControleurCalculatrice{
 	public void verifierAddition() {
 		//valeur du resultat verifie avec le resultat de l'operation choisi
 		if(resultat == calc.additionRandom()) {
+			vue.getBoutonComparer().setEnabled(false);
 			vue.infoLabelResultat("Bien joué mais te la péte pas trop!");
+			//valeur ajouter pour calculer ne nombre de calcul réalisé
+			nbDeCalcul++;
+			//creation de score
+			score++;
 			wait.schedule(new TimerTask() {
-				
 				public void run() {
-					procedureDeFermeture();
+					comptabiliserScore();
 				}
 			},2000 // les secondes du délais (1000 = 1sec)
 			);
 			
 		}else {
 			//res permet d'afficher le nombre d'essai restant
-			int res;
 			erreur++;
-			res = 3 - erreur;
-			vue.setLabelResultat("T'es mauvais Jack, tu sais pas jouer! Recommence "+res);
-			if(res == 0) {
+			res = 4 - erreur;
+			vue.setLabelResultat("Plus que "+(res-1)+" entatives");
+			if(res == 1) {
+				vue.getBoutonComparer().setEnabled(false);
 				vue.infoLabelResultat("Le resultat était : "+calc.additionRandom()+" entraine toi plus!");
+				nbDeCalcul++;
 				wait.schedule(new TimerTask() {
-					
 					public void run() {
-						procedureDeFermeture();
+						comptabiliserScore();
 					}
 				},2000 // les secondes du délais (1000 = 1sec)
 				);
@@ -127,34 +132,75 @@ public class ControleurCalculatrice{
 	public void verifierSoustraction() {
 		//valeur du resultat verifie avec le resultat de l'operation choisi
 		if(resultat == calc.soustractionRandom()) {
+			vue.getBoutonComparer().setEnabled(false);
 			vue.infoLabelResultat("Bien joué mais te la péte pas trop!");
+			//valeur ajouter pour calculer ne nombre de calcul réalisé
+			nbDeCalcul++;
+			//creation de score
+			score++;
 			wait.schedule(new TimerTask() {
-				
 				public void run() {
-					procedureDeFermeture();
+					comptabiliserScore();
 				}
-			},2000 // les secondes du délais (1000 = 1sec)
+			},5000 // les secondes du délais (1000 = 1sec)
 			);
 			
 		}else {
-			int res;
+			//res permet d'afficher le nombre d'essai restant
 			erreur++;
-			res = 3 - erreur;
-			vue.infoLabelResultat("T'es mauvais Jack, tu sais pas jouer! Recommence "+res);
-			if(res == 0) {
+			res = 4 - erreur;
+			vue.setLabelResultat("Plus que "+(res-1)+" entatives");
+			if(res == 1) {
+				vue.getBoutonComparer().setEnabled(false);
 				vue.infoLabelResultat("Le resultat était : "+calc.soustractionRandom()+" entraine toi plus!");
+				nbDeCalcul++;
 				wait.schedule(new TimerTask() {
-					
 					public void run() {
-						procedureDeFermeture();
+						comptabiliserScore();
 					}
-				},2000 // les secondes du délais (1000 = 1sec)
+					
+				},5000 // les secondes du délais (1000 = 1sec)
 				);
-				
 			}
 		}
 	}
+	public void comptabiliserScore() {
 		
+		int calculEffectue = nbDeCalcul;
+		
+		if(calculEffectue < 8 && calculEffectue >= 0) {
+			genererCalcul();
+		}else {
+			vue.getBoutonComparer().setEnabled(false);
+			vue.getBoutonDecrementation1().setEnabled(false);
+			vue.getBoutonIncrementation1().setEnabled(false);
+			
+			scoring = new ScoringCalculatrice();
+			scoring.setLabelScore1(""+score);
+			
+			cloture = new ThreadClotureCalculatrice();
+			//renvoyer resultat sur la page de fin
+			wait.schedule(new TimerTask() {
+				public void run() {
+					cloture.start();
+				}
+			},1000 // les secondes du délais (1000 = 1sec)
+			);
+		}
+	}
+	
+	public void procedureDeFermeture() {
+		IntroCalculette intro1 = new IntroCalculette();
+    	Timer fermeture = new Timer();
+		fermeture.schedule(new TimerTask() {
+			
+			public void run() {
+				System.exit(0);
+			}
+		},3000 // les secondes du délais (1000 = 1sec)
+		);
+	}
+	
 
 	//Classe écoutant
 	class BoutonIncremListener1 implements ActionListener{
@@ -196,37 +242,13 @@ public class ControleurCalculatrice{
 			String symbole;
 			//valeur du resultat verifie avec le resultat de l'operation choisi
 			symbole = vue.getLabelCalcul();
-			
 			if(symbole == "+") {
 				verifierAddition();
 			}
 			else if(symbole == "-") {
 				verifierSoustraction();
 			}
-		
 		}
 	}
-/*	
-	 fonction utile
-		public static void fermetureProgramme() {
-			
-			Timer fermetureApresResultat = new Timer();  
-			fermetureApresResultat.schedule(new TimerTask() {
-				
-				public void run() {
-					System.exit(0);
-				}
-			},1 // les secondes du délais (1000 = 1sec)
-			);
-		}
-		
-		public void pauseProgramme() {
 
-			try {
-				TimeUnit.SECONDS.sleep(10);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-*/
 } //fin

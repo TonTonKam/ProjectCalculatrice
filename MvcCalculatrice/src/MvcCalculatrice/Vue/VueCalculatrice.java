@@ -55,7 +55,7 @@ public class VueCalculatrice extends JFrame{
 		//option du panel
 		pane.setLayout(new BorderLayout());
 		
-//option du construct pour l'objet
+		//option du construct pour l'objet
 		//attribuer ce panel a la fenetre
 		this.setContentPane(pane);
 		
@@ -116,24 +116,8 @@ public class VueCalculatrice extends JFrame{
 	    pane.add(south, BorderLayout.SOUTH);
 	} //fin de presentation du panel
 	
-	
-/*
- *Changement de procedure pour liberer la vue
-// si les boutons sont clickes, on execute la methode dans le controleur nomme actionPerformed
-	public void addBoutonIncremListener1(ActionListener listenForCalcButton){
-		boutonIncrementation1.addActionListener(listenForCalcButton);
-	}
 
-	public void addBoutonDecremListener1(ActionListener listenForCalcButton){
-		boutonDecrementation1.addActionListener(listenForCalcButton);
-	}
-	
-	public void addBoutonComparer(ActionListener action){
-		boutonComparer.addActionListener(action);
-	}
-*/
 //creation des boutons de controle
-
 	public JButton getBoutonComparer() {
 		return boutonComparer;
 	}
@@ -148,12 +132,8 @@ public class VueCalculatrice extends JFrame{
 	public int getLabelChiffre1() {
 		return Integer.parseInt(labelChiffre1.getText());
 	}
-//lui demander la valeur en string car changement de valeur avec le get en int
-
-	public void setLabelChiffre1(String solution) {
-		labelChiffre1.setText(solution);
-	}
 	
+//lui demander la valeur en string car changement de valeur avec le get en int
 	public void setLabelChiffre1(int resultat) {
 		labelChiffre1.setText(Integer.toString(resultat));
 	}
@@ -202,5 +182,4 @@ public class VueCalculatrice extends JFrame{
 		labelResultat.setText(solution);
 	}
 
-	
 } //fin

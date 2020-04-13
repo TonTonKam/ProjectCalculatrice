@@ -14,6 +14,7 @@ public class IntroCalculette extends JFrame{
 		//regler la taille
 		setSize(ht,lg);
 		setLocationRelativeTo(null);
+		setTitle("Calculatrice Enfant");
 		
 		//localisation de l'image
 		ImageIcon icone = new ImageIcon("image.jpg"); 
