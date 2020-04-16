@@ -12,17 +12,12 @@ public class ThreadClotureCalculatrice extends Thread{
 	private int periodeFenetre = 3;
 	
 	public void run() {
-		
-		score = new ScoringCalculatrice();
-		
 		try {
 			sleep(6000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		score.dispose();
 		intro = new IntroCalculette();
 		
 		try {

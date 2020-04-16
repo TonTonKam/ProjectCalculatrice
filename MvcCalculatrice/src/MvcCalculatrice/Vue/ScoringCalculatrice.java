@@ -29,7 +29,8 @@ public class ScoringCalculatrice extends JFrame {
 		//definir un titre pour le cadre
 		setTitle("Calculatrice Enfant");
 		setLocationRelativeTo(null);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		// ne termine pas le processus lorsque l'on clique "fermer"
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		//option du panel
 		pane.setLayout(new BorderLayout());

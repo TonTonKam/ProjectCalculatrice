@@ -41,6 +41,7 @@ public class ControleurCalculatrice{
 		    	procedureDeFermeture();
 		    }
 		});
+		
 		this.genererCalcul();
 		
 	}
@@ -168,7 +169,7 @@ public class ControleurCalculatrice{
 		
 		int calculEffectue = nbDeCalcul;
 		
-		if(calculEffectue < 8 && calculEffectue >= 0) {
+		if(calculEffectue < 7 && calculEffectue >= 0) {
 			genererCalcul();
 		}else {
 			vue.getBoutonComparer().setEnabled(false);
@@ -184,6 +185,7 @@ public class ControleurCalculatrice{
 				public void run() {
 					cloture.start();
 				}
+			
 			},1000 // les secondes du délais (1000 = 1sec)
 			);
 		}
@@ -193,7 +195,6 @@ public class ControleurCalculatrice{
 		IntroCalculette intro1 = new IntroCalculette();
     	Timer fermeture = new Timer();
 		fermeture.schedule(new TimerTask() {
-			
 			public void run() {
 				System.exit(0);
 			}

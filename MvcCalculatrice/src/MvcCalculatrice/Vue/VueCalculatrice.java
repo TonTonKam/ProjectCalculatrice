@@ -37,7 +37,7 @@ public class VueCalculatrice extends JFrame{
 	private JLabel labelResultat = new JLabel(" ");
 
 	
-	//la classe prend le nom du fichier mere	
+	//la classe prend le nom du fichier mere
 	public VueCalculatrice() {
 
 //option du cadre
